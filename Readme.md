@@ -13,3 +13,8 @@ DELETE operation :
 
 Dynamo DB Snapshot:
 <img width="1700" height="1298" alt="image" src="https://github.com/user-attachments/assets/9a612f63-68e1-460c-b884-ccf72091a73c" />
+
+
+
+Challenges : 
+Setting up a simple CRUD with AWS Lambda and DynamoDB was trickier than I expected, mostly because of the wiring, not the code. I kept getting 500s until I realized queryStringParameters and body can be None, my TABLE_NAME env var wasn’t set, and my role didn’t have the right DynamoDB permissions. Using CloudWatch logs to print the incoming event helped me see what the API Gateway was actually sending. I also learned DynamoDB is key-based (no joins or auto-increment), so everything revolves around the partition key, and curl was the easiest way to test each method. Overall, I learned to be careful with event shapes, permissions, and simple checks before blaming the code.
